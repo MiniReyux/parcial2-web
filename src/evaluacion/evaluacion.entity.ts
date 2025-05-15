@@ -5,7 +5,7 @@ import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class EvaluacionEntity {
     @PrimaryGeneratedColumn("uuid")
-    id: number;
+    id: string;
 
     @ManyToOne(() => ProfesorEntity, profesor => profesor.evaluaciones)
     profesor: ProfesorEntity;
