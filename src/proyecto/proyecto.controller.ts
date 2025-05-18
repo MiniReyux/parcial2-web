@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { ProyectoService } from './proyecto.service';
 import { ProyectoDTO } from './proyecto.dto';
 import { ProyectoEntity } from './proyecto.entity';
 import { plainToInstance } from 'class-transformer';
+import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors/business-errors.interceptor';
 
 @Controller('proyectos')
+@UseInterceptors(BusinessErrorsInterceptor)
 export class ProyectoController {
     constructor (private readonly proyectoService: ProyectoService) {}
     

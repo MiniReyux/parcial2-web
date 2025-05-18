@@ -5,8 +5,8 @@ import { EstudianteDTO } from './estudiante.dto';
 import { EstudianteEntity } from './estudiante.entity';
 import { plainToInstance } from 'class-transformer';
 
-@UseInterceptors(BusinessErrorsInterceptor)
 @Controller('estudiantes')
+@UseInterceptors(BusinessErrorsInterceptor)
 export class EstudianteController {
     constructor (private readonly estudianteService: EstudianteService) {}
 
