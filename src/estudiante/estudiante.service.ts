@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EstudianteEntity } from './estudiante.entity';
 import { Repository } from 'typeorm';
+import { BusinessError, BusinessLogicException } from 'src/shared/errors/business-errors';
 
 @Injectable()
 export class EstudianteService {
@@ -17,7 +18,7 @@ export class EstudianteService {
     async eliminarEstudiante(id: string) {
         const estudiante: EstudianteEntity = await this.estudianteRepository.findOne({where:{id}})
         if (!estudiante)
-            throw new TypeError("no encontrado")
+            throw new BusinessLogicException("no encontrado", BusinessError.NOT_FOUND)
         return this.estudianteRepository.remove(estudiante);
     }
 }

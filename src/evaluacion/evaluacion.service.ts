@@ -7,10 +7,10 @@ import { Repository } from 'typeorm';
 export class EvaluacionService {
     constructor (
         @InjectRepository(EvaluacionEntity)
-        private readonly estudianteRepository: Repository<EvaluacionEntity>
+        private readonly evaluacionRepository: Repository<EvaluacionEntity>
     ) {}
 
-    async crearEvaluacion() {
-        
+    async crearEvaluacion(evaluacion: EvaluacionEntity) {
+        return await this.evaluacionRepository.save(evaluacion);
     }
 }

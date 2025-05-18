@@ -7,14 +7,14 @@ import { Repository } from 'typeorm';
 export class ProfesorService {
     constructor (
         @InjectRepository(ProfesorEntity)
-        private readonly estudianteRepository: Repository<ProfesorEntity>
+        private readonly profesorRepository: Repository<ProfesorEntity>
     ) {}
 
-    async crearProfesor() {
-
+    async crearProfesor(profesor: ProfesorEntity): Promise<ProfesorEntity> {
+        return await this.profesorRepository.save(profesor);
     }
 
-    async asignarEvaluador() {
+    async asignarEvaluador(id: string) {
         
     }
 }
