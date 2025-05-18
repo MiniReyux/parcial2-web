@@ -1,10 +1,10 @@
 import { Controller, UseInterceptors } from '@nestjs/common';
-import { EstudianteEntity } from './estudiante.entity';
 import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors/business-errors.interceptor';
+import { EstudianteService } from './estudiante.service';
 
 @UseInterceptors(BusinessErrorsInterceptor)
-@Controller('estudiante')
+@Controller('estudiantes')
 export class EstudianteController {
-    constructor (private readonly estudianteEntity: EstudianteEntity) {}
+    constructor (private readonly estudianteService: EstudianteService) {}
 
 }
