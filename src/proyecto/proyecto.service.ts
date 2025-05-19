@@ -13,7 +13,7 @@ export class ProyectoService {
     ) {}
     
     async crearProyecto(proyecto: ProyectoEntity): Promise<ProyectoEntity> {
-        if (!(proyecto.presupuesto > 0 && proyecto.titulo.length>15 && (proyecto.estado<0 || proyecto.estado>4)))
+        if (!(proyecto.presupuesto > 0 && proyecto.titulo.length>15 && proyecto.estado >= 0 && proyecto.estado <= 4))
             throw new BusinessLogicException("proyecto inválido", BusinessError.PRECONDITION_FAILED);
         return await this.proyectoRepository.save(proyecto);
     }
@@ -31,7 +31,7 @@ export class ProyectoService {
     }
 
     async findAllEstudiantes(id: string): Promise<EstudianteEntity> {
-        const proyecto: ProyectoEntity = await this.proyectoRepository.findOne({where:{id}});
+        const proyecto: ProyectoEntity = await this.proyectoRepository.findOne({where:{id}, relations: ['lider'],});
         if (!proyecto)
             throw new BusinessLogicException("proyecto no econtrado", BusinessError.NOT_FOUND);
         if (!proyecto.lider)

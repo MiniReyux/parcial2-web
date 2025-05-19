@@ -12,6 +12,7 @@ describe('ProyectoService', () => {
   let service: ProyectoService;
   let repository: Repository<ProyectoEntity>
   let proyectosList: ProyectoEntity[];
+  let estudianteRepository: Repository<EstudianteEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,6 +22,7 @@ describe('ProyectoService', () => {
 
     service = module.get<ProyectoService>(ProyectoService);
     repository = module.get<Repository<ProyectoEntity>>(getRepositoryToken(ProyectoEntity));
+    estudianteRepository = module.get<Repository<EstudianteEntity>>(getRepositoryToken(EstudianteEntity));
     await seedDatabase();
   });
 
@@ -31,7 +33,7 @@ describe('ProyectoService', () => {
       const proyecto: ProyectoEntity = await repository.save({
         titulo: faker.lorem.words(4),
         area: faker.commerce.department(),
-        presupuesto: faker.number.float({ min: 1000 }),
+        presupuesto: faker.number.float({ min: 1000, max: 10000 }),
         nota_final: faker.number.float({ min: 1, max: 5 }),
         estado: faker.number.int({ min: 0, max: 3 }),
         fecha_inicio: faker.date.past().toISOString(),
@@ -115,23 +117,30 @@ describe('ProyectoService', () => {
 
   describe('findAllEstudiantes', () => {
     it('debería retornar el líder del proyecto', async () => {
-      const estudiante: EstudianteEntity = {
-        id: faker.string.uuid(),
+      const estudiante = await estudianteRepository.save({
         cedula: 123456,
-        nombre: 'Juan Pérez',
+        nombre: 'Ana López',
         programa: 'Ingeniería',
-        promedio: 4.2,
+        promedio: 4.5,
         proyectos: [],
-      };
+      });
 
       const proyecto = await repository.save({
-        ...proyectosList[1],
+        titulo: 'Proyecto largo válido de investigación',
+        area: 'Ciencias',
+        presupuesto: 3000,
+        nota_final: 4.5,
+        estado: 2,
+        fecha_inicio: '2023-01-01',
+        fecha_fin: '2023-12-31',
         lider: estudiante,
+        mentor: null,
+        evaluaciones: [],
       });
 
       const result = await service.findAllEstudiantes(proyecto.id);
       expect(result).not.toBeNull();
-      expect(result.nombre).toEqual('Juan Pérez');
+      expect(result.nombre).toEqual('Ana López');
     });
 
     it('debería lanzar excepción si el proyecto no existe', async () => {
