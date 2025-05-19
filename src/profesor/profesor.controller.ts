@@ -10,7 +10,7 @@ import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-erro
 export class ProfesorController {
     constructor (private readonly profesorService:ProfesorService) {}
     
-    @Post()
+    @Post('create')
     async crearProfesor(@Body() profesorDTO: ProfesorDTO) {
         const profesor: ProfesorEntity = plainToInstance(ProfesorEntity, profesorDTO);
         return await this.profesorService.crearProfesor(profesor);

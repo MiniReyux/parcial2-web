@@ -10,7 +10,7 @@ import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-erro
 export class ProyectoController {
     constructor (private readonly proyectoService: ProyectoService) {}
     
-    @Post()
+    @Post('create')
     async crearProyecto(@Body() proyectoDTO: ProyectoDTO) {
         const proyecto: ProyectoEntity = plainToInstance(ProyectoEntity, proyectoDTO);
         return await this.proyectoService.crearProyecto(proyecto);
@@ -21,7 +21,7 @@ export class ProyectoController {
         return await this.proyectoService.avanzarProyecto(proyectoId);
     }
 
-    @Get(":id")
+    @Get(":id/estudiantes")
     async findAllEstudiantes(@Param("id") proyectoId: string) {
         return await this.findAllEstudiantes(proyectoId);
     }

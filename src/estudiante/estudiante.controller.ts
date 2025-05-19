@@ -10,7 +10,7 @@ import { plainToInstance } from 'class-transformer';
 export class EstudianteController {
     constructor (private readonly estudianteService: EstudianteService) {}
 
-    @Post()
+    @Post('create')
     async crearEstudiante(@Body() estudianteDTO: EstudianteDTO) {
         const estudiante: EstudianteEntity = plainToInstance(EstudianteEntity, estudianteDTO)
         return await this.estudianteService.crearEstudiante(estudiante);

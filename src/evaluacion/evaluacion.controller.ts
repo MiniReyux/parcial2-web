@@ -10,7 +10,7 @@ import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-erro
 export class EvaluacionController {
     constructor (private readonly evaluacionService: EvaluacionService) {}
     
-    @Post()
+    @Post('create')
     async crearEvaluacion(@Body() evaluacionDTO: EvaluacionDTO) {
         const evaluacion: EvaluacionEntity = plainToInstance(EvaluacionEntity, evaluacionDTO);
         return await this.evaluacionService.crearEvaluacion(evaluacion);
