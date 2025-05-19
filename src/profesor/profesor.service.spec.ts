@@ -67,4 +67,10 @@ describe('ProfesorService', () => {
       expect(savedProfesor.esParEvaluado).toEqual(profesor.esParEvaluado);
     });
 
+    it('debería lanzar un error si no se envía nada', async () => {
+      await expect(() => service.crearProfesor(undefined))
+        .rejects.toThrow();
+    });
+
+
 });

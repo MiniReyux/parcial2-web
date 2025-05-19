@@ -42,4 +42,9 @@ describe('EvaluacionService', () => {
     expect(savedEvaluacion.proyecto.id).toEqual(evaluacion.proyecto.id);
   });
 
+  it('debería lanzar un error si no se envía nada', async () => {
+    await expect(() => service.crearEvaluacion(undefined))
+      .rejects.toThrow();
+  });
+
 });

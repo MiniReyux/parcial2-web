@@ -11,7 +11,7 @@ export class ProyectoService {
         @InjectRepository(ProyectoEntity)
         private readonly proyectoRepository: Repository<ProyectoEntity>
     ) {}
-
+    
     async crearProyecto(proyecto: ProyectoEntity): Promise<ProyectoEntity> {
         if (!(proyecto.presupuesto > 0 && proyecto.titulo.length>15 && (proyecto.estado<0 || proyecto.estado>4)))
             throw new BusinessLogicException("proyecto inválido", BusinessError.PRECONDITION_FAILED);

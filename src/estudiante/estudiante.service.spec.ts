@@ -63,6 +63,11 @@ describe('EstudianteService', () => {
     expect(storedEstudiante.promedio).toEqual(estudiante.promedio);
   });
 
+  it('crearEstudiante debería lanzar un error si no se envía nada', async () => {
+    await expect(() => service.crearEstudiante(undefined))
+      .rejects.toThrow();
+  });
+
   it('eliminarEstudiante debería eliminar un estudiante', async () => {
     const estudiante: EstudianteEntity = estudiantesList[0];
     await service.eliminarEstudiante(estudiante.id);
